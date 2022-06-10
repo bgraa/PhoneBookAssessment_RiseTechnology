@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.810.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookAssessment.APIGateway", "PhoneBookAssessment.APIGateway\PhoneBookAssessment.APIGateway.csproj", "{7499F07B-8B5B-4BA6-8BDA-C34D4DD9BC91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookAssessment.ContactAPI", "PhoneBookAssessment.ContactAPI\PhoneBookAssessment.ContactAPI.csproj", "{FFBFFB72-B20E-41A9-A7B0-29AEF026BC60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookAssessment.ReportAPI", "PhoneBookAssessment.ReportAPI\PhoneBookAssessment.ReportAPI.csproj", "{75A14D15-9ACB-4A30-9558-FF2D9772D77D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7499F07B-8B5B-4BA6-8BDA-C34D4DD9BC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7499F07B-8B5B-4BA6-8BDA-C34D4DD9BC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7499F07B-8B5B-4BA6-8BDA-C34D4DD9BC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFBFFB72-B20E-41A9-A7B0-29AEF026BC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBFFB72-B20E-41A9-A7B0-29AEF026BC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFBFFB72-B20E-41A9-A7B0-29AEF026BC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFBFFB72-B20E-41A9-A7B0-29AEF026BC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A14D15-9ACB-4A30-9558-FF2D9772D77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A14D15-9ACB-4A30-9558-FF2D9772D77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A14D15-9ACB-4A30-9558-FF2D9772D77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A14D15-9ACB-4A30-9558-FF2D9772D77D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
