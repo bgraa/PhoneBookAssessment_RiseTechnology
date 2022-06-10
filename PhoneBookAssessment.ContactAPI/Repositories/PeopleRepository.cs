@@ -1,8 +1,9 @@
 using PhoneBookAssessment.ContactAPI.Entities;
+using PhoneBookAssessment.ContactAPI.Repositories.Interfaces;
 
 namespace PhoneBookAssessment.ContactAPI.Repositories
 {
-    public class PeopleRepository
+    public class PeopleRepository: List<People>, IPeopleRepository
     {
         private readonly static List<People> _peoples = Populate();
 
