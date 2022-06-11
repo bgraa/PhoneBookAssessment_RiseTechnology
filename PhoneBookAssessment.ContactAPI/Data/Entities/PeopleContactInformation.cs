@@ -1,13 +1,18 @@
 ﻿using System;
 namespace PhoneBookAssessment.ContactAPI.Data.Entities
 {
-    public class People
+    public class PeopleContactInformation : BaseEntity
     {
-        public int UUID { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Firm { get; set; }
-        public PeopleContactInformation ContactInformation { get; set; }
+        public InformationType? InformationType { get; set; }
+        public string? InformationContent { get; set; }
+        public int PeopleId { get; set; }
+        public People? People { get; set; }
+    }
 
+    public enum InformationType
+    {
+        Email,
+        Phone,
+        Location
     }
 }
