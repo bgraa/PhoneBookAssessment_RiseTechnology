@@ -4,9 +4,9 @@
   },
   "Routes": [
     {
-      "UpstreamPathTemplate": "/contact-api/peoples",
+      "UpstreamPathTemplate": "/contact-api/persons",
       "UpstreamHttpMethod": ["Get"],
-      "DownstreamPathTemplate": "/api/peoples",
+      "DownstreamPathTemplate": "/api/persons",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -19,9 +19,9 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/contact-api/peoples/{id}",
+      "UpstreamPathTemplate": "/contact-api/persons/{id}",
       "UpstreamHttpMethod": ["Get"],
-      "DownstreamPathTemplate": "/api/peoples/{id}",
+      "DownstreamPathTemplate": "/api/persons/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -31,9 +31,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/contact-api/peoples",
+      "UpstreamPathTemplate": "/contact-api/persons",
       "UpstreamHttpMethod": ["Post"],
-      "DownstreamPathTemplate": "/api/peoples",
+      "DownstreamPathTemplate": "/api/persons",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

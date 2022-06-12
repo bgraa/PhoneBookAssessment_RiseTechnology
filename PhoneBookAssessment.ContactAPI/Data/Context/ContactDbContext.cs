@@ -9,16 +9,16 @@ namespace PhoneBookAssessment.ContactAPI.Data.Context
     {
         public ContactDbContext(DbContextOptions<ContactDbContext> options) : base(options) { }
 
-        public DbSet<People> Peoples { get; set; }
+        public DbSet<Person> Persons { get; set; }
         
-        public DbSet<PeopleContactInformation> PeopleContactInformation { get; set; } 
+        public DbSet<PersonContactInformation> PersonContactInformation { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresExtension("uuid-ossp");
 
-            modelBuilder.ApplyConfiguration(new PeopleConfiguration());
-            modelBuilder.ApplyConfiguration(new PeopleContactInformationConfiguration()); 
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonContactInformationConfiguration()); 
             base.OnModelCreating(modelBuilder);
         }
     }

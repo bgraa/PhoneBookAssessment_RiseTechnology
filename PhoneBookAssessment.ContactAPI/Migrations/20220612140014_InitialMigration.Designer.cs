@@ -12,7 +12,7 @@ using PhoneBookAssessment.ContactAPI.Data.Context;
 namespace PhoneBookAssessment.ContactAPI.Migrations
 {
     [DbContext(typeof(ContactDbContext))]
-    [Migration("20220612072941_InitialMigration")]
+    [Migration("20220612140014_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.People", b =>
+            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,10 +49,10 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("Person", (string)null);
                 });
 
-            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.PeopleContactInformation", b =>
+            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.PersonContactInformation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,28 +70,28 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
                         .IsUnicode(false)
                         .HasColumnType("character varying(32)");
 
-                    b.Property<Guid>("PeopleId")
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeopleId");
+                    b.HasIndex("PersonId");
 
-                    b.ToTable("PeopleContactInformation", (string)null);
+                    b.ToTable("PersonContactInformation", (string)null);
                 });
 
-            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.PeopleContactInformation", b =>
+            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.PersonContactInformation", b =>
                 {
-                    b.HasOne("PhoneBookAssessment.ContactAPI.Data.Entities.People", "People")
+                    b.HasOne("PhoneBookAssessment.ContactAPI.Data.Entities.Person", "Person")
                         .WithMany("ContactInformation")
-                        .HasForeignKey("PeopleId")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("People");
+                    b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.People", b =>
+            modelBuilder.Entity("PhoneBookAssessment.ContactAPI.Data.Entities.Person", b =>
                 {
                     b.Navigation("ContactInformation");
                 });

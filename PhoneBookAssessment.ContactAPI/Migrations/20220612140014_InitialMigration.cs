@@ -13,7 +13,7 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
                 .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.CreateTable(
-                name: "People",
+                name: "Person",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
@@ -23,42 +23,42 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_People", x => x.Id);
+                    table.PrimaryKey("PK_Person", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PeopleContactInformation",
+                name: "PersonContactInformation",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     InformationType = table.Column<string>(type: "character varying(32)", unicode: false, maxLength: 32, nullable: false),
                     InformationContent = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
-                    PeopleId = table.Column<Guid>(type: "uuid", nullable: false)
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PeopleContactInformation", x => x.Id);
+                    table.PrimaryKey("PK_PersonContactInformation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PeopleContactInformation_People_PeopleId",
-                        column: x => x.PeopleId,
-                        principalTable: "People",
+                        name: "FK_PersonContactInformation_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeopleContactInformation_PeopleId",
-                table: "PeopleContactInformation",
-                column: "PeopleId");
+                name: "IX_PersonContactInformation_PersonId",
+                table: "PersonContactInformation",
+                column: "PersonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PeopleContactInformation");
+                name: "PersonContactInformation");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Person");
         }
     }
 }

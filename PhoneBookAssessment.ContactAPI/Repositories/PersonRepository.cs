@@ -5,9 +5,9 @@ using PhoneBookAssessment.ContactAPI.Repositories.Common;
 
 namespace PhoneBookAssessment.ContactAPI.Repositories
 {
-    public class PeopleRepository : GenericRepository<People>, IPeopleRepository
+    public class PersonRepository : GenericRepository<Person>, IPersonRepository
     {
-        public PeopleRepository(DbContext dbContext) : base(dbContext)
+        public PersonRepository(DbContext dbContext) : base(dbContext)
         {
         }
     }

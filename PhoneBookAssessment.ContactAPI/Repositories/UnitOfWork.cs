@@ -6,14 +6,14 @@ namespace PhoneBookAssessment.ContactAPI.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ContactDbContext _dbContext;
-        private PeopleRepository _peopleRepository;
+        private PersonRepository _personRepository;
 
         public UnitOfWork(ContactDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public IPeopleRepository Peoples => _peopleRepository = _peopleRepository ?? new PeopleRepository(_dbContext);
+        public IPersonRepository PersonRepository => _personRepository = _personRepository ?? new PersonRepository(_dbContext);
 
         public async Task SaveAsync()
         {
