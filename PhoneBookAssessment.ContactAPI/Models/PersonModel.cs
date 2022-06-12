@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace PhoneBookAssessment.ContactAPI.Models
 {
     public class PersonModel
@@ -5,7 +7,7 @@ namespace PhoneBookAssessment.ContactAPI.Models
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Company { get; set; }
-        public List<PersonContactInformationModel> ContactInformation { get; set; } = new List<PersonContactInformationModel>();
+        public virtual ICollection<PersonContactInformationModel> ContactInformation { get; set; } = new Collection<PersonContactInformationModel>();
 
     }
 }

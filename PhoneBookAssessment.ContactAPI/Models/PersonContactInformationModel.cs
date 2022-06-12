@@ -7,6 +7,6 @@ namespace PhoneBookAssessment.ContactAPI.Models
         public InformationTypes? InformationType { get; set; }
         public string? InformationContent { get; set; }
         public Guid PersonId { get; set; }
-        public PersonModel? Person { get; set; }
+        public virtual PersonModel? Person { get; set; }
     }
 }

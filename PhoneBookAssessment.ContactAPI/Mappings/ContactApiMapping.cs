@@ -8,8 +8,9 @@ namespace PhoneBookAssessment.ContactAPI.Mappings
     {
         public ContactApiMapping()
         {
-            CreateMap<Person, PersonModel>();
-            CreateMap<PersonModel, Person>();
+            CreateMap<Person, PersonModel>().ReverseMap();
+
+            CreateMap<PersonContactInformation, PersonContactInformationModel>().ReverseMap();
         }
     }
 }

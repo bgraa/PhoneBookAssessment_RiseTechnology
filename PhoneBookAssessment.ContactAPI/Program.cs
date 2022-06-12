@@ -6,20 +6,20 @@ using PhoneBookAssessment.ContactAPI.Services;
 using PhoneBookAssessment.ContactAPI.Services.Common;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
-builder.Services.AddScoped<IPersonService, PersonService>();
-builder.Services.AddControllers();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ContactDbContext>(opt =>
+builder.Services.AddDbContext<ContactDbContext>(opt =>
 opt.UseNpgsql(builder.Configuration.GetConnectionString("ContactAPIDbConnection"))
 );
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddControllers();
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

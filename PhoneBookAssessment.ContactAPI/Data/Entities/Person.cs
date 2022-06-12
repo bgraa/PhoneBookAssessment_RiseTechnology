@@ -8,7 +8,7 @@ namespace PhoneBookAssessment.ContactAPI.Data.Entities
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Company { get; set; }
-        public List<PersonContactInformation> ContactInformation { get; set; } = new List<PersonContactInformation>();
+        public virtual List<PersonContactInformation> ContactInformation { get; set; } = new List<PersonContactInformation>();
 
     }
 }

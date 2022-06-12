@@ -35,7 +35,9 @@ namespace PhoneBookAssessment.ContactAPI.Services
                 
                 await _unitOfWork.PersonRepository.AddAsync(personEntity).ConfigureAwait(false);
 
-                response.Data = _mapper.Map<List<PersonModel>>(personEntity);
+                await _unitOfWork.SaveAsync();
+
+                response.Data = _mapper.Map<PersonModel>(personEntity);
 
                 return response;
             }

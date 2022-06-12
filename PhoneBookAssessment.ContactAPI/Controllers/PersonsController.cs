@@ -26,7 +26,7 @@ namespace PhoneBookAssessment.ContactAPI.Controllers
                     return BadRequest(response.Message);
                 }
 
-                return Ok(response.Data);
+                return Ok(response);
             }
             catch (Exception)
             {   

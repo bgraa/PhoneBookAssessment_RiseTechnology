@@ -7,7 +7,7 @@ namespace PhoneBookAssessment.ContactAPI.Data.Entities
         public InformationTypes? InformationType { get; set; }
         public string? InformationContent { get; set; }
         public Guid PersonId { get; set; }
-        public Person? Person { get; set; }
+        public virtual Person? Person { get; set; }
     }
 
     
