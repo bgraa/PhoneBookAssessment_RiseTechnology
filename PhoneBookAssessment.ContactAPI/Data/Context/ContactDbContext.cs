@@ -10,6 +10,7 @@ namespace PhoneBookAssessment.ContactAPI.Data.Context
         public ContactDbContext(DbContextOptions<ContactDbContext> options) : base(options) { }
 
         public DbSet<People> Peoples { get; set; }
+        
         public DbSet<PeopleContactInformation> PeopleContactInformation { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

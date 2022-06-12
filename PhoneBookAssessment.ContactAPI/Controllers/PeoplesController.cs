@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PhoneBookAssessment.ContactAPI.Repositories.Interfaces;
+using PhoneBookAssessment.ContactAPI.Repositories.Common;
 
 namespace PhoneBookAssessment.ContactAPI.Controllers
 {
@@ -11,34 +11,6 @@ namespace PhoneBookAssessment.ContactAPI.Controllers
         public PeoplesController(IPeopleRepository peopleRepository)
         {
             _peopleRepository = peopleRepository;
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_peopleRepository.GetAll());
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var article = _peopleRepository.Get(id);
-
-            if (article is null)
-                return NotFound();
-
-            return Ok(article);
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var deletedId = _peopleRepository.Delete(id);
-
-            if (deletedId == 0)
-                return NotFound();
-
-            return NoContent();
-        }
+        } 
     }
 }

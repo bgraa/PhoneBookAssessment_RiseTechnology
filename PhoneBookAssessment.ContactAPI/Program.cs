@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhoneBookAssessment.ContactAPI.Data.Context;
 using PhoneBookAssessment.ContactAPI.Repositories;
-using PhoneBookAssessment.ContactAPI.Repositories.Interfaces;
+using PhoneBookAssessment.ContactAPI.Repositories.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ContactDbContext>(opt=>
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ContactDbContext>(opt =>
 opt.UseNpgsql(builder.Configuration.GetConnectionString("ContactAPIDbConnection"))
 );
 builder.Services.AddControllers();
@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
 
 var app = builder.Build();
