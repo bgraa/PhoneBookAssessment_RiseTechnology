@@ -14,6 +14,8 @@ namespace PhoneBookAssessment.ContactAPI.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("uuid-ossp");
+
             modelBuilder.ApplyConfiguration(new PeopleConfiguration());
             modelBuilder.ApplyConfiguration(new PeopleContactInformationConfiguration()); 
             base.OnModelCreating(modelBuilder);

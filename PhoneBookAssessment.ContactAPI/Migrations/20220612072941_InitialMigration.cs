@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -9,12 +9,14 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
+
             migrationBuilder.CreateTable(
                 name: "People",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     Surname = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     Company = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false)
@@ -28,11 +30,10 @@ namespace PhoneBookAssessment.ContactAPI.Migrations
                 name: "PeopleContactInformation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     InformationType = table.Column<string>(type: "character varying(32)", unicode: false, maxLength: 32, nullable: false),
                     InformationContent = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
-                    PeopleId = table.Column<int>(type: "integer", nullable: false)
+                    PeopleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

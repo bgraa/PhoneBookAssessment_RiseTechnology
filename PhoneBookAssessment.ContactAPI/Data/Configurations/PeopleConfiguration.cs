@@ -9,7 +9,7 @@ namespace PhoneBookAssessment.ContactAPI.Data.Configurations
         public void Configure(EntityTypeBuilder<People> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.Property(x => x.Id).HasColumnType("uuid").HasDefaultValueSql("uuid_generate_v4()").IsRequired();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(32);
             builder.Property(x => x.Surname).IsRequired().HasMaxLength(32);
             builder.Property(x => x.Company).IsRequired().HasMaxLength(256);
