@@ -50,5 +50,20 @@ namespace PhoneBookAssessment.ContactAPI.Controllers
                 throw;
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePersonById(Guid id)
+        {
+            try
+            {
+                await _personService.DeletePerson(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

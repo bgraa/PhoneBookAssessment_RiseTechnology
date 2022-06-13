@@ -20,7 +20,7 @@
     },
     {
       "UpstreamPathTemplate": "/contact-api/persons/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": ["Get","Delete"],
       "DownstreamPathTemplate": "/api/persons/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -43,9 +43,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/gateway/report",
-      "UpstreamHttpMethod": ["Get"],
-      "DownstreamPathTemplate": "/api/report",
+      "UpstreamPathTemplate": "/report-api/reports",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/reports",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

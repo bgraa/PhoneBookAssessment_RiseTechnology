@@ -47,9 +47,24 @@ namespace PhoneBookAssessment.ContactAPI.Services
             }
         }
 
-        public void DeletePerson(PersonModel person)
+        public async Task DeletePerson(Guid personId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var person = await _unitOfWork.PersonRepository.GetByIdAsync(personId);
+                if (person != null)
+                {
+                    _unitOfWork.PersonRepository.Delete(person);
+
+                    await _unitOfWork.SaveAsync();
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IReadOnlyList<PersonModel>> GetAllPersonsAsync()

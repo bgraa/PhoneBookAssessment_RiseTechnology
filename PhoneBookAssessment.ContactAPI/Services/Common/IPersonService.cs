@@ -10,6 +10,6 @@ namespace PhoneBookAssessment.ContactAPI.Services.Common
         Task<ResponseModel<PersonDetailModel>> GetPersonByIdWithDetailAsync(Guid Id);
         Task<ResponseModel<Guid>> CreatePersonAsync(CreatePersonModel person);
         Task<ResponseModel<PersonModel>> UpdatePersonAsync(PersonModel person);
-        void DeletePerson(PersonModel person);
+        Task DeletePerson(Guid id);
     }
 }
