@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 using PhoneBookAssessment.ContactAPI.Data.Context;
 using PhoneBookAssessment.ContactAPI.Repositories;
 using PhoneBookAssessment.ContactAPI.Repositories.Common;
@@ -13,7 +14,8 @@ opt.UseNpgsql(builder.Configuration.GetConnectionString("ContactAPIDbConnection"
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPersonService, PersonService>();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -17,11 +17,11 @@ namespace PhoneBookAssessment.ContactAPI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<ResponseModel<PersonModel>> CreatePersonAsync(PersonModel person)
+        public async Task<ResponseModel<Guid>> CreatePersonAsync(CreatePersonModel person)
         {
             try
             {
-                var response = new ResponseModel<PersonModel>();
+                var response = new ResponseModel<Guid>();
 
                 if (person == null)
                 {
@@ -32,12 +32,12 @@ namespace PhoneBookAssessment.ContactAPI.Services
                 }
 
                 var personEntity = _mapper.Map<Person>(person);
-                
-                await _unitOfWork.PersonRepository.AddAsync(personEntity).ConfigureAwait(false);
+
+                await _unitOfWork.PersonRepository.AddAsync(personEntity);
 
                 await _unitOfWork.SaveAsync();
 
-                response.Data = _mapper.Map<PersonModel>(personEntity);
+                response.Data = personEntity.Id;
 
                 return response;
             }
@@ -52,14 +52,36 @@ namespace PhoneBookAssessment.ContactAPI.Services
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<PersonModel>> GetAllPersonsAsync()
+        public async Task<IReadOnlyList<PersonModel>> GetAllPersonsAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var persons = await _unitOfWork.PersonRepository.GetAllAsync();
+
+                return _mapper.Map<IReadOnlyList<PersonModel>>(persons);
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
 
         public Task<ResponseModel<PersonModel>> GetPersonByIdAsync(Guid Id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ResponseModel<PersonDetailModel>> GetPersonByIdWithDetailAsync(Guid Id)
+        {
+            var person = await _unitOfWork.PersonRepository.GetPersonWithContactInformationAsync(Id);
+
+            var response = new ResponseModel<PersonDetailModel>();
+
+            response.Data = _mapper.Map<PersonDetailModel>(person);
+
+            return response;
         }
 
         public Task<ResponseModel<PersonModel>> UpdatePersonAsync(PersonModel person)

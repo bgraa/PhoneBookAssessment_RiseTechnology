@@ -15,13 +15,30 @@ namespace PhoneBookAssessment.ContactAPI.Controllers
             _personService = personService ?? throw new ArgumentNullException(nameof(personService));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllPersons()
+        {
+            var result = await _personService.GetAllPersonsAsync();
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPersonByIdWithDetail(Guid id)
+        {
+            var result = await _personService.GetPersonByIdWithDetailAsync(id);
+
+            return Ok(result);
+        }
+
+
         [HttpPost]
-        public async Task<IActionResult> CreatePerson([FromBody] PersonModel person)
+        public async Task<IActionResult> CreatePerson([FromBody] CreatePersonModel person)
         {
             try
             {
-                var response = await _personService.CreatePersonAsync(person).ConfigureAwait(false);
-                if(!response.IsValid)
+                var response = await _personService.CreatePersonAsync(person);
+                if (!response.IsValid)
                 {
                     return BadRequest(response.Message);
                 }
@@ -29,9 +46,9 @@ namespace PhoneBookAssessment.ContactAPI.Controllers
                 return Ok(response);
             }
             catch (Exception)
-            {   
+            {
                 throw;
-            } 
+            }
         }
     }
 }

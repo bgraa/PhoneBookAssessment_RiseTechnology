@@ -5,9 +5,10 @@ namespace PhoneBookAssessment.ContactAPI.Services.Common
 {
     public interface IPersonService
     {
-        Task<ResponseModel<PersonModel>> GetAllPersonsAsync();
+        Task<IReadOnlyList<PersonModel>> GetAllPersonsAsync();
         Task<ResponseModel<PersonModel>> GetPersonByIdAsync(Guid Id);
-        Task<ResponseModel<PersonModel>> CreatePersonAsync(PersonModel person);
+        Task<ResponseModel<PersonDetailModel>> GetPersonByIdWithDetailAsync(Guid Id);
+        Task<ResponseModel<Guid>> CreatePersonAsync(CreatePersonModel person);
         Task<ResponseModel<PersonModel>> UpdatePersonAsync(PersonModel person);
         void DeletePerson(PersonModel person);
     }
