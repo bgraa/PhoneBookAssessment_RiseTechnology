@@ -5,7 +5,7 @@
   "Routes": [
     {
       "UpstreamPathTemplate": "/contact-api/persons",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/api/persons",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -20,7 +20,7 @@
     },
     {
       "UpstreamPathTemplate": "/contact-api/persons/{id}",
-      "UpstreamHttpMethod": ["Get","Delete"],
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamPathTemplate": "/api/persons/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -31,8 +31,20 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/contact-api/persons/{id}/detail",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/persons/{id}/detail",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/contact-api/persons",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/persons",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -43,8 +55,44 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/contact-api/persons/{personId}/contact-information",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/persons/{personId}/contact-information",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/contact-api/persons/contact-informations/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamPathTemplate": "/api/persons/contact-informations/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/contact-api/persons/contact-informations",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/persons/contact-informations",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/report-api/reports",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/reports",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -62,7 +110,7 @@
     },
     {
       "UpstreamPathTemplate": "/gateway/report/{id}",
-      "UpstreamHttpMethod": ["Get", "Delete"],
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamPathTemplate": "/api/report/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

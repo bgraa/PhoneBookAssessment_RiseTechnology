@@ -7,6 +7,7 @@ namespace PhoneBookAssessment.ContactAPI.Repositories
     {
         private readonly ContactDbContext _dbContext;
         private PersonRepository _personRepository;
+        private PersonContactInformationRepository _personContactInformationRepository;
 
         public UnitOfWork(ContactDbContext dbContext)
         {
@@ -14,6 +15,7 @@ namespace PhoneBookAssessment.ContactAPI.Repositories
         }
 
         public IPersonRepository PersonRepository => _personRepository = _personRepository ?? new PersonRepository(_dbContext);
+        public IPersonContactInformationRepository PersonContactInformationRepository => _personContactInformationRepository = _personContactInformationRepository ?? new PersonContactInformationRepository(_dbContext);
 
         public async Task SaveAsync()
         {

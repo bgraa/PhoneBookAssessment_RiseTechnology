@@ -47,17 +47,24 @@ namespace PhoneBookAssessment.ContactAPI.Services
             }
         }
 
-        public async Task DeletePerson(Guid personId)
+        public async Task<ResponseModel> DeletePerson(Guid personId)
         {
             try
             {
-                var person = await _unitOfWork.PersonRepository.GetByIdAsync(personId);
-                if (person != null)
-                {
-                    _unitOfWork.PersonRepository.Delete(person);
+                var response = new ResponseModel();
 
-                    await _unitOfWork.SaveAsync();
+                var person = await _unitOfWork.PersonRepository.GetByIdAsync(personId);
+                if (person == null)
+                {
+                    response.IsValid=false;
+                    response.Message = "Person not found.";
                 }
+
+                _unitOfWork.PersonRepository.Delete(person);
+
+                await _unitOfWork.SaveAsync();
+ 
+                return response;
 
             }
             catch (System.Exception)
@@ -83,14 +90,37 @@ namespace PhoneBookAssessment.ContactAPI.Services
             }
         }
 
-        public Task<ResponseModel<PersonModel>> GetPersonByIdAsync(Guid Id)
+        public async Task<ResponseModel<PersonModel>> GetPersonByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = new ResponseModel<PersonModel>();
+
+                if(string.IsNullOrWhiteSpace(id.ToString()))
+                {
+                    response.IsValid=false;
+                    response.Message="Person id cannot be null.";
+
+                    return response;
+                }
+
+                var person = await _unitOfWork.PersonRepository.GetByIdAsync(id);
+                
+                response.Data = _mapper.Map<PersonModel>(person);
+
+                return response;
+
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
 
-        public async Task<ResponseModel<PersonDetailModel>> GetPersonByIdWithDetailAsync(Guid Id)
+        public async Task<ResponseModel<PersonDetailModel>> GetPersonByIdWithDetailAsync(Guid id)
         {
-            var person = await _unitOfWork.PersonRepository.GetPersonWithContactInformationAsync(Id);
+            var person = await _unitOfWork.PersonRepository.GetPersonWithContactInformationAsync(id);
 
             var response = new ResponseModel<PersonDetailModel>();
 
@@ -99,9 +129,5 @@ namespace PhoneBookAssessment.ContactAPI.Services
             return response;
         }
 
-        public Task<ResponseModel<PersonModel>> UpdatePersonAsync(PersonModel person)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

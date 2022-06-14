@@ -17,6 +17,8 @@ namespace PhoneBookAssessment.ContactAPI.Mappings
             CreateMap<PersonContactInformation, PersonContactInformationModel>()
             .ForMember(dst => dst.InformationTypeDescription, opt => opt.MapFrom(src => src.InformationType.ToString()))
             .ReverseMap();
+
+            CreateMap<CreatePersonContactInformationModel, PersonContactInformation>();
         }
     }
 }

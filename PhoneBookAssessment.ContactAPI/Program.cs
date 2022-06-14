@@ -14,6 +14,7 @@ opt.UseNpgsql(builder.Configuration.GetConnectionString("ContactAPIDbConnection"
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPersonContactInformationService, PersonContactInformationService>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
