@@ -19,6 +19,11 @@ namespace PhoneBookAssessment.ReportAPI.Repositories
             await _dbContext.Set<TEntity>().AddAsync(entity);
         }
 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entity)
+        {
+            await _dbContext.Set<TEntity>().AddRangeAsync(entity);
+        }
+
         public void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);

@@ -77,24 +77,18 @@ namespace PhoneBookAssessment.ReportAPI.Services
 
                 var responseStream = await responseRequest.Content.ReadAsStringAsync();
                 var personContactInformations = JsonConvert.DeserializeObject<IEnumerable<PersonContactInformationModel>>(responseStream);
-
-                var reportResponseModel = new ReportResponseModel();
-
-                reportResponseModel.Report = _mapper.Map<ReportModel>(report);
-
-                var reportDetail = personContactInformations?.Where(x => x.InformationTypeDescription == InformationTypes.Location.ToString()).Select(x => x.InformationContent).Distinct().Select(x => new ReportDetailModel
+                 
+                var reportDetail = personContactInformations?.Where(x => x.InformationTypeDescription == InformationTypes.Location.ToString()).Select(x => x.InformationContent).Distinct().Select(x => new ReportDetail
                 {
+                    ReportId = report.Id,
                     Location = x,
                     PersonsCount = personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Location.ToString() && y.InformationContent == x).Count(),
                     PhoneNumbersCount = personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Location.ToString() && personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Phone.ToString() && y.InformationContent == x).Select(x => x.PersonId).Contains(y.PersonId)).Count()
-                }).ToList();
-
-                if (reportDetail!=null)
-                {
-                    reportResponseModel.ReportDetailModels.AddRange(reportDetail);
-                }
+                });
+                 
                 report.ReportStatus = ReportStatusType.Completed;
 
+                await _unitOfWork.ReportDetailRepository.AddRangeAsync(reportDetail);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)
@@ -112,21 +106,30 @@ namespace PhoneBookAssessment.ReportAPI.Services
 
         public async Task<ReportResponseModel> GetReportDetail(Guid reportId)
         {
-            var response = new ReportResponseModel();
-
-            var report = await _unitOfWork.ReportRepository.GetByIdAsync(reportId);
-            if (report != null)
+            try
             {
-                response.Report = _mapper.Map<ReportModel>(report);
 
-                var reportDetail = await _unitOfWork.ReportDetailRepository.FindAsync(x => x.ReportId == reportId);
-                if (reportDetail?.Count() > 0)
+                var response = new ReportResponseModel();
+
+                var report = await _unitOfWork.ReportRepository.GetByIdAsync(reportId);
+                if (report != null)
                 {
-                    response.ReportDetailModels.AddRange(_mapper.Map<IReadOnlyList<ReportDetailModel>>(reportDetail));
-                }
-            }
+                    response.Report = _mapper.Map<ReportModel>(report);
 
-            return response;
+                    var reportDetail = await _unitOfWork.ReportDetailRepository.FindAsync(x => x.ReportId == reportId);
+                    if (reportDetail?.Count() > 0)
+                    {
+                        response.ReportDetailModels = new List<ReportDetailModel>();
+                        response.ReportDetailModels.AddRange(_mapper.Map<IReadOnlyList<ReportDetailModel>>(reportDetail));
+                    }
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
 
         }
 
