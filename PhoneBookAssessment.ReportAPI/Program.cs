@@ -32,6 +32,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient();
 var app = builder.Build();
+app.Services.CreateScope().ServiceProvider.GetRequiredService<ReportDbContext>().Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

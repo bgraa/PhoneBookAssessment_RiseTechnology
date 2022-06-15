@@ -27,6 +27,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+app.Services.CreateScope().ServiceProvider.GetRequiredService<ContactDbContext>().Database.Migrate();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
