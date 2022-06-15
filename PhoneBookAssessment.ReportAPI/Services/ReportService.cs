@@ -50,7 +50,7 @@ namespace PhoneBookAssessment.ReportAPI.Services
                     throw new ArgumentException("The message could not be written to queue.");
                 }
 
-                
+
 
                 return report.Id;
             }
@@ -87,10 +87,12 @@ namespace PhoneBookAssessment.ReportAPI.Services
                     Location = x,
                     PersonsCount = personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Location.ToString() && y.InformationContent == x).Count(),
                     PhoneNumbersCount = personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Location.ToString() && personContactInformations.Where(y => y.InformationTypeDescription == InformationTypes.Phone.ToString() && y.InformationContent == x).Select(x => x.PersonId).Contains(y.PersonId)).Count()
-                });
+                }).ToList();
 
-                reportResponseModel.ReportDetailModels.AddRange(reportDetail);
-
+                if (reportDetail!=null)
+                {
+                    reportResponseModel.ReportDetailModels.AddRange(reportDetail);
+                }
                 report.ReportStatus = ReportStatusType.Completed;
 
                 await _unitOfWork.SaveAsync();
@@ -99,7 +101,7 @@ namespace PhoneBookAssessment.ReportAPI.Services
             {
                 throw;
             }
-        } 
+        }
 
         public async Task<IReadOnlyList<ReportModel>> GetAllReports()
         {
@@ -115,8 +117,10 @@ namespace PhoneBookAssessment.ReportAPI.Services
             var report = await _unitOfWork.ReportRepository.GetByIdAsync(reportId);
             if (report != null)
             {
+                response.Report = _mapper.Map<ReportModel>(report);
+
                 var reportDetail = await _unitOfWork.ReportDetailRepository.FindAsync(x => x.ReportId == reportId);
-                if (reportDetail != null)
+                if (reportDetail?.Count() > 0)
                 {
                     response.ReportDetailModels.AddRange(_mapper.Map<IReadOnlyList<ReportDetailModel>>(reportDetail));
                 }

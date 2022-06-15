@@ -37,7 +37,7 @@ namespace PhoneBookAssessment.ReportAPI.Services
             consumerEvent.Received += (ch, ea) =>
             {
                 var reportService = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IReportService>();
-                var incomingModel = JsonConvert.DeserializeObject<string>(Encoding.UTF8.GetString(ea.Body.ToArray()));
+                var incomingModel =  Encoding.UTF8.GetString(ea.Body.ToArray());
                 Console.WriteLine("Data received");
                 Console.WriteLine($"Received Id: {incomingModel}");
                 reportService.GenerateReportResponse(Guid.Parse(incomingModel));
