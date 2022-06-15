@@ -4,15 +4,16 @@ using PhoneBookAssessment.ReportAPI.Data.Entities;
 
 namespace PhoneBookAssessment.ReportAPI.Data.Configurations
 {
-    public class ReportConfiguration: IEntityTypeConfiguration<Report>
+    public class ReportDetailConfiguration : IEntityTypeConfiguration<ReportDetail>
     {
-        public void Configure(EntityTypeBuilder<Report> builder)
+        public void Configure(EntityTypeBuilder<ReportDetail> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnType("uuid").HasDefaultValueSql("uuid_generate_v4()").IsRequired();
-            builder.Property(x => x.RequestedDate).IsRequired();
-            builder.Property(x => x.ReportStatus).IsRequired();
-            builder.ToTable("Reports");
+            builder.Property(x => x.Location).IsRequired();
+            builder.Property(x => x.PersonsCount).IsRequired();
+            builder.Property(x => x.PhoneNumbersCount).IsRequired();
+            builder.ToTable("ReportDetails");
         }
 
          

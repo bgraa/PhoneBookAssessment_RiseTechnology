@@ -1,9 +1,9 @@
-namespace PhoneBookAssessment.ContactAPI.Repositories.Common
+namespace PhoneBookAssessment.ReportAPI.Repositories.Common
 {
     public interface IUnitOfWork : IDisposable
     {
-          IPersonRepository PersonRepository { get; }
-          IPersonContactInformationRepository PersonContactInformationRepository { get; }
+          IReportRepository ReportRepository { get; } 
+          IReportDetailRepository ReportDetailRepository { get; }
         Task SaveAsync();
     }
 }

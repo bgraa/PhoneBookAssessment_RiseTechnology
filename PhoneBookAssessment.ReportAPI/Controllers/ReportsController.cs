@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PhoneBookAssessment.ReportAPI.Interface;
+using PhoneBookAssessment.ReportAPI.Services.Common;
 
 namespace PhoneBookAssessment.ReportAPI.Controllers
 {
@@ -7,21 +7,50 @@ namespace PhoneBookAssessment.ReportAPI.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-         private readonly IMessageService _messageService;
+         private readonly IReportService _reportService;
 
-        public ReportsController(IMessageService messageService)
+        public ReportsController(IReportService reportService)
         {
-            _messageService = messageService;
+            _reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
         }
+         
 
-        [HttpPost]
-        public IActionResult CreateReport()
+        [HttpPost] 
+        public async Task<IActionResult> CreateReport()
         {
             try
             {
-                var response = _messageService.EnqueueMessage("test");
+                var result = await _reportService.CreateReport();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-                return Ok(response);
+        [HttpGet] 
+        public async Task<IActionResult> GetAllReports()
+        {
+            try
+            { 
+                var result = await _reportService.GetAllReports();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("{id}/detail")] 
+        public async Task<IActionResult> GetReportDetail(Guid id)
+        {
+            try
+            { 
+                var result = await _reportService.GetReportDetail(id);
+
+                return Ok(result);
             }
             catch (Exception)
             {

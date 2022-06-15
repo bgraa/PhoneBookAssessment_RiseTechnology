@@ -1,24 +1,20 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using PhoneBookAssessment.ContactAPI.Data.Configurations;
-using PhoneBookAssessment.ContactAPI.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneBookAssessment.ReportAPI.Data.Configurations;
+using PhoneBookAssessment.ReportAPI.Data.Entities;
 
-namespace PhoneBookAssessment.ContactAPI.Data.Context
+namespace PhoneBookAssessment.ReportAPI.Data.Context
 {
-    public class ContactDbContext : DbContext
+    public class ReportDbContext : DbContext
     {
-        public ContactDbContext(DbContextOptions<ContactDbContext> options) : base(options) { }
+        public ReportDbContext(DbContextOptions<ReportDbContext> options) : base(options) { }
 
-        public DbSet<Person> Persons { get; set; }
-        
-        public DbSet<PersonContactInformation> PersonContactInformation { get; set; } 
+        public DbSet<Report> Reports { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresExtension("uuid-ossp");
 
-            modelBuilder.ApplyConfiguration(new PersonConfiguration());
-            modelBuilder.ApplyConfiguration(new PersonContactInformationConfiguration()); 
+            modelBuilder.ApplyConfiguration(new ReportConfiguration()); 
             base.OnModelCreating(modelBuilder);
         }
     }

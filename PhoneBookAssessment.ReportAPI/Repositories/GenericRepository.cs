@@ -1,15 +1,15 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using PhoneBookAssessment.ContactAPI.Data.Context;
-using PhoneBookAssessment.ContactAPI.Repositories.Common;
+using PhoneBookAssessment.ReportAPI.Data.Context;
+using PhoneBookAssessment.ReportAPI.Repositories.Common;
 
-namespace PhoneBookAssessment.ContactAPI.Repositories
+namespace PhoneBookAssessment.ReportAPI.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected readonly ContactDbContext _dbContext;
+        protected readonly ReportDbContext _dbContext;
 
-        public GenericRepository(ContactDbContext dbContext)
+        public GenericRepository(ReportDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -5,9 +5,9 @@ using PhoneBookAssessment.ReportAPI.Repositories.Common;
 
 namespace PhoneBookAssessment.ReportAPI.Repositories
 {
-    public class ReportRepository : GenericRepository<Report>, IReportRepository
+    public class ReportDetailRepository : GenericRepository<ReportDetail>, IReportDetailRepository
     {
-        public ReportRepository(ReportDbContext dbContext) : base(dbContext)
+        public ReportDetailRepository(ReportDbContext dbContext) : base(dbContext)
         {
         } 
     }

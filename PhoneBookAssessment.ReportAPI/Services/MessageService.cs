@@ -1,8 +1,8 @@
 using System.Text;
-using PhoneBookAssessment.ReportAPI.Interface;
+using PhoneBookAssessment.ReportAPI.Services.Common;
 using RabbitMQ.Client;
 
-namespace PhoneBookAssessment.ReportAPI.RabbitMQ
+namespace PhoneBookAssessment.ReportAPI.Services
 {
     public class MessageService : IMessageService
     {

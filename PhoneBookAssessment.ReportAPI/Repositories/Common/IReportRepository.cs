@@ -1,9 +1,9 @@
-using PhoneBookAssessment.ContactAPI.Data.Entities;
+using PhoneBookAssessment.ReportAPI.Data.Entities;
 
-namespace PhoneBookAssessment.ContactAPI.Repositories.Common
+namespace PhoneBookAssessment.ReportAPI.Repositories.Common
 {
-    public interface IPersonRepository : IGenericRepository<Person>
+    public interface IReportRepository : IGenericRepository<Report>
     {
-        Task<Person> GetPersonWithContactInformationAsync(Guid id);
+        
     }
 }

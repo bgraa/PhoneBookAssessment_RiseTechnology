@@ -1,4 +1,4 @@
-namespace PhoneBookAssessment.ReportAPI.Interface
+namespace PhoneBookAssessment.ReportAPI.Services.Common
 {
     public interface IMessageService
     {

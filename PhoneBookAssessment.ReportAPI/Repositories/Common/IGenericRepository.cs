@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
-using PhoneBookAssessment.ContactAPI.Data.Entities;
 
-namespace PhoneBookAssessment.ContactAPI.Repositories.Common
+namespace PhoneBookAssessment.ReportAPI.Repositories.Common
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

@@ -1,20 +1,14 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using PhoneBookAssessment.ContactAPI.Data.Context;
-using PhoneBookAssessment.ContactAPI.Data.Entities;
-using PhoneBookAssessment.ContactAPI.Repositories.Common;
+using PhoneBookAssessment.ReportAPI.Data.Context;
+using PhoneBookAssessment.ReportAPI.Data.Entities;
+using PhoneBookAssessment.ReportAPI.Repositories.Common;
 
-namespace PhoneBookAssessment.ContactAPI.Repositories
+namespace PhoneBookAssessment.ReportAPI.Repositories
 {
-    public class PersonRepository : GenericRepository<Person>, IPersonRepository
+    public class ReportRepository : GenericRepository<Report>, IReportRepository
     {
-        public PersonRepository(ContactDbContext dbContext) : base(dbContext)
+        public ReportRepository(ReportDbContext dbContext) : base(dbContext)
         {
-        }
-
-        public async Task<Person> GetPersonWithContactInformationAsync(Guid id)
-        {
-            return await _dbContext.Persons.Include(x => x.ContactInformation).FirstOrDefaultAsync(x => x.Id == id);
-        }
+        } 
     }
 }

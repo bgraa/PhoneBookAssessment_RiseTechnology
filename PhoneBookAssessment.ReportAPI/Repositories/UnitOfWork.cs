@@ -1,21 +1,21 @@
-using PhoneBookAssessment.ContactAPI.Data.Context;
-using PhoneBookAssessment.ContactAPI.Repositories.Common;
+using PhoneBookAssessment.ReportAPI.Data.Context;
+using PhoneBookAssessment.ReportAPI.Repositories.Common;
 
-namespace PhoneBookAssessment.ContactAPI.Repositories
+namespace PhoneBookAssessment.ReportAPI.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ContactDbContext _dbContext;
-        private PersonRepository _personRepository;
-        private PersonContactInformationRepository _personContactInformationRepository;
+        private readonly ReportDbContext _dbContext;
+        private ReportRepository _reportRepository;  
+        private ReportDetailRepository _reportDetailRepository;
 
-        public UnitOfWork(ContactDbContext dbContext)
+        public UnitOfWork(ReportDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public IPersonRepository PersonRepository => _personRepository = _personRepository ?? new PersonRepository(_dbContext);
-        public IPersonContactInformationRepository PersonContactInformationRepository => _personContactInformationRepository = _personContactInformationRepository ?? new PersonContactInformationRepository(_dbContext);
+        public IReportRepository ReportRepository => _reportRepository = _reportRepository ?? new ReportRepository(_dbContext);
+        public IReportDetailRepository ReportDetailRepository => _reportDetailRepository = _reportDetailRepository ?? new ReportDetailRepository(_dbContext);
 
         public async Task SaveAsync()
         {

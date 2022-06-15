@@ -1,4 +1,4 @@
-﻿namespace PhoneBookAssessment.ContactAPI.Data.Entities
+﻿namespace PhoneBookAssessment.ReportAPI.Data.Entities
 {
     public abstract class BaseEntity
     {

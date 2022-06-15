@@ -109,9 +109,27 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/gateway/report/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
-      "DownstreamPathTemplate": "/api/report/{id}",
+      "UpstreamPathTemplate": "/report-api/reports",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reports",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 10,
+        "Limit": 1
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/report-api/reports/{id}/detail",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reports/{id}/detail",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

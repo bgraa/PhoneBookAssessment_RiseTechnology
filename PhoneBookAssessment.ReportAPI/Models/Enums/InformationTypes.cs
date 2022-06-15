@@ -1,4 +1,4 @@
-namespace PhoneBookAssessment.ContactAPI.Models.Enums
+namespace PhoneBookAssessment.ReportAPI.Models.Enums
 {
     public enum InformationTypes
     {

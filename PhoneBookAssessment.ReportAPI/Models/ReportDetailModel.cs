@@ -3,11 +3,11 @@ using PhoneBookAssessment.ReportAPI.Models.Enums;
 
 namespace PhoneBookAssessment.ReportAPI.Models
 {
-	public class ReportModel : BaseModel
+	public class ReportDetailModel : BaseModel
 	{
-		public DateTime RequestedDate { get; set; } 
-
-        public string? ReportStatusDescription { get; set; }
+        public string? Location { get; set; }
+        public int PersonsCount { get; set; }
+        public int PhoneNumbersCount { get; set; }
     }
 }
 

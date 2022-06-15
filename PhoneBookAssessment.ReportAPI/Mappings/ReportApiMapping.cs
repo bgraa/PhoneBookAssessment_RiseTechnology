@@ -1,24 +1,18 @@
 using AutoMapper;
-using PhoneBookAssessment.ContactAPI.Data.Entities;
-using PhoneBookAssessment.ContactAPI.Models;
+using PhoneBookAssessment.ReportAPI.Data.Entities;
+using PhoneBookAssessment.ReportAPI.Models;
 
 namespace PhoneBookAssessment.ContactAPI.Mappings
 {
-    public class ContactApiMapping : Profile
+    public class ReportApiMapping : Profile
     {
-        public ContactApiMapping()
-        {
-            CreateMap<Person, PersonModel>().ReverseMap();
-
-            CreateMap<CreatePersonModel, Person>();
-            
-            CreateMap<Person, PersonDetailModel>().IncludeBase<Person, PersonModel>();
-
-            CreateMap<PersonContactInformation, PersonContactInformationModel>()
-            .ForMember(dst => dst.InformationTypeDescription, opt => opt.MapFrom(src => src.InformationType.ToString()))
+        public ReportApiMapping()
+        { 
+            CreateMap<Report, ReportModel>()
+            .ForMember(dst => dst.ReportStatusDescription, opt => opt.MapFrom(src => src.ReportStatus.ToString()))
             .ReverseMap();
 
-            CreateMap<CreatePersonContactInformationModel, PersonContactInformation>();
+            CreateMap<ReportDetail, ReportDetailModel>(); 
         }
     }
 }
