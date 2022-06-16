@@ -1,11 +1,38 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using PhoneBookAssessment.ReportAPI.Data.Context;
+using PhoneBookAssessment.ReportAPI.Models;
+using PhoneBookAssessment.ReportAPI.Repositories;
+using PhoneBookAssessment.ReportAPI.Repositories.Common;
+using PhoneBookAssessment.ReportAPI.Services;
+using PhoneBookAssessment.ReportAPI.Services.Common;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ReportDbContext>(opt =>
+opt.UseNpgsql(builder.Configuration.GetConnectionString("ReportAPIDbConnection"))
+); 
+builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IMessageService,MessageService>();
+builder.Services.AddScoped<IReportService,ReportService>();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddHttpClient();
 var app = builder.Build();
+app.Services.CreateScope().ServiceProvider.GetRequiredService<ReportDbContext>().Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -14,30 +41,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseQueueService();
+
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

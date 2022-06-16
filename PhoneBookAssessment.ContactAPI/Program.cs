@@ -1,11 +1,34 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using PhoneBookAssessment.ContactAPI.Data.Context;
+using PhoneBookAssessment.ContactAPI.Repositories;
+using PhoneBookAssessment.ContactAPI.Repositories.Common;
+using PhoneBookAssessment.ContactAPI.Services;
+using PhoneBookAssessment.ContactAPI.Services.Common;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ContactDbContext>(opt =>
+opt.UseNpgsql(builder.Configuration.GetConnectionString("ContactAPIDbConnection"))
+);
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPersonContactInformationService, PersonContactInformationService>();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+app.Services.CreateScope().ServiceProvider.GetRequiredService<ContactDbContext>().Database.Migrate();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -16,28 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
 
-record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
